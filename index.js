@@ -37,13 +37,14 @@ app.set('view engine', 'njk')
 //   res.send(`Bem-vindo, ${req.query.name}`);
 // });
 
-const ageMiddleware = (req, res, next) => {
-  if (!req.query.age) {
-    res.redirect('/')
-  } else {
-    next()
+const checkAgeQueryParam = (req, res, next) => {
+  const { age } = req.query
+
+  if (!age) {
+    return res.redirect('/')
   }
-}
+  next()
+};
 
 app.get('/', (req, res) => {
   res.render('home')
